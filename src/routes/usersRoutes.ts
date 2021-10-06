@@ -11,6 +11,7 @@ class UsersRoutes {
     config(): void{
         this.router.get('/', userController.index);
         this.router.get('/users', userController.getUsers);
+        this.router.get('/:usuario/:password', userController.login);
     }
 
 }

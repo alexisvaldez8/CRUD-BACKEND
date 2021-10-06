@@ -20,10 +20,27 @@ class UserController {
     }
     getUsers(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield database_1.default.query('SELECT * FROM `dbo.users`', function (err, result, fields) {
+            yield database_1.default.query('SELECT * FROM `dbo.users`', function (err, result) {
                 if (err)
                     throw err;
                 res.json(result);
+            });
+        });
+    }
+    login(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { usuario } = req.params;
+            const { password } = req.params;
+            yield database_1.default.query('SELECT * FROM `dbo.users` WHERE name = ? AND password = ?;', [usuario, password], function (err, result) {
+                if (err)
+                    throw err;
+                // res.json(result);
+                if (result.lenght < 0) {
+                    res.json(result);
+                }
+                else {
+                    res.json(result);
+                }
             });
         });
     }

@@ -13,6 +13,7 @@ class UsersRoutes {
     config() {
         this.router.get('/', usersController_1.default.index);
         this.router.get('/users', usersController_1.default.getUsers);
+        this.router.get('/:usuario/:password', usersController_1.default.login);
     }
 }
 const usersRoutes = new UsersRoutes();
