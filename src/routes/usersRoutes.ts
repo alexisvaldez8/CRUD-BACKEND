@@ -11,7 +11,12 @@ class UsersRoutes {
     config(): void{
         this.router.get('/', userController.index);
         this.router.get('/users', userController.getUsers);
-        this.router.get('/:usuario/:password', userController.login);
+        this.router.get('/accounts', userController.getAccounts);
+        this.router.get('/:email/:password', userController.login);
+        this.router.get('/users-detail', userController.getUsersDetail);
+        this.router.post('/users-detail-register', userController.saveUser);
+        this.router.post('/accounts-register', userController.saveAccount);
+        this.router.delete('/:idUser', userController.deleteUser);
     }
 
 }

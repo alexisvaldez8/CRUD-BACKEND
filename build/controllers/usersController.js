@@ -27,16 +27,79 @@ class UserController {
             });
         });
     }
-    login(req, res) {
+    getUsersDetail(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { usuario } = req.params;
-            const { password } = req.params;
-            yield database_1.default.query('SELECT * FROM `dbo.users` WHERE name = ? AND password = ?;', [usuario, password], function (err, result) {
+            yield database_1.default.query('SELECT * FROM `dbo.users.detail`', function (err, result) {
                 if (err)
                     throw err;
-                // res.json(result);
+                res.json(result);
+            });
+        });
+    }
+    getAccounts(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield database_1.default.query('SELECT * FROM `dbo.cuentas`', function (err, result) {
+                if (err)
+                    throw err;
+                res.json(result);
+            });
+        });
+    }
+    login(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { email } = req.params;
+            const { password } = req.params;
+            yield database_1.default.query('SELECT * FROM `dbo.users` WHERE email = ? AND password = ?;', [email, password], function (err, result) {
+                if (err)
+                    throw err;
                 if (result.lenght < 0) {
                     res.json(result);
+                }
+                else {
+                    res.json(result);
+                }
+            });
+        });
+    }
+    saveUser(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            yield database_1.default.query('INSERT INTO `dbo.users.detail` set ?', [req.body], function (err, result) {
+                if (err)
+                    throw err;
+                if (result.lenght < 0) {
+                    res.json({ "Respuesta": "Usuario guardado" });
+                }
+                else {
+                    res.json(result);
+                }
+            });
+        });
+    }
+    saveAccount(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            yield database_1.default.query('INSERT INTO `dbo.cuentas` set ?', [req.body], function (err, result) {
+                if (err)
+                    throw err;
+                if (result.lenght < 0) {
+                    res.json({ "Respuesta": "Cuenta guardada" });
+                }
+                else {
+                    res.json(result);
+                }
+            });
+        });
+    }
+    deleteUser(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            const { idUser } = req.params;
+            yield database_1.default.query('DELETE FROM `dbo.users.detail` WHERE idUser = ?', [idUser], function (err, result) {
+                if (err)
+                    throw err;
+                if (result) {
+                    res.json({ "Respuesta": "Usuario eliminado" });
                 }
                 else {
                     res.json(result);
