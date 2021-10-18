@@ -45,6 +45,15 @@ class UserController {
             });
         });
     }
+    getChanges(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield database_1.default.query('SELECT T1.* , T2.email FROM `dbo.changes` AS T1 LEFT JOIN `dbo.users.detail` AS T2 ON T1.idUser = T2.idUser', function (err, result) {
+                if (err)
+                    throw err;
+                res.json(result);
+            });
+        });
+    }
     login(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { email } = req.params;
@@ -91,6 +100,21 @@ class UserController {
             });
         });
     }
+    newChange(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            yield database_1.default.query('INSERT INTO `dbo.changes` set ?', [req.body], function (err, result) {
+                if (err)
+                    throw err;
+                if (result.lenght < 0) {
+                    res.json({ "Respuesta": "Cambio guardado" });
+                }
+                else {
+                    res.json(result);
+                }
+            });
+        });
+    }
     deleteUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log(req.body);
@@ -100,6 +124,38 @@ class UserController {
                     throw err;
                 if (result) {
                     res.json({ "Respuesta": "Usuario eliminado" });
+                }
+                else {
+                    res.json(result);
+                }
+            });
+        });
+    }
+    deleteAccount(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            const { idAccount } = req.params;
+            yield database_1.default.query('DELETE FROM `dbo.cuentas` WHERE idAccount = ?', [idAccount], function (err, result) {
+                if (err)
+                    throw err;
+                if (result) {
+                    res.json({ "Respuesta": "Cuenta eliminada" });
+                }
+                else {
+                    res.json(result);
+                }
+            });
+        });
+    }
+    deleteChange(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(req.body);
+            const { idChanges } = req.params;
+            yield database_1.default.query('DELETE FROM `dbo.changes` WHERE idChanges = ?', [idChanges], function (err, result) {
+                if (err)
+                    throw err;
+                if (result) {
+                    res.json({ "Respuesta": "Cambio eliminado" });
                 }
                 else {
                     res.json(result);
