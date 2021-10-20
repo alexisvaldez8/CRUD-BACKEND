@@ -32,7 +32,7 @@ class UserController {
     public async login (req: Request, res : Response): Promise<any> {
         const { email } = req.params;
         const { password } = req.params;
-        await pool.query('SELECT * FROM `dbo.users` WHERE email = ? AND password = ?;',[email,password], function(err, result) {
+        await pool.query('SELECT * FROM `dbo.users.detail` WHERE email = ? AND password = ?;',[email,password], function(err, result) {
             if (err) throw err;
             if(result.lenght<0){
                 res.json(result)

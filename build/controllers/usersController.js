@@ -58,7 +58,7 @@ class UserController {
         return __awaiter(this, void 0, void 0, function* () {
             const { email } = req.params;
             const { password } = req.params;
-            yield database_1.default.query('SELECT * FROM `dbo.users` WHERE email = ? AND password = ?;', [email, password], function (err, result) {
+            yield database_1.default.query('SELECT * FROM `dbo.users.detail` WHERE email = ? AND password = ?;', [email, password], function (err, result) {
                 if (err)
                     throw err;
                 if (result.lenght < 0) {
