@@ -21,6 +21,12 @@ class UsersRoutes {
         this.router.delete('/:idUser', userController.deleteUser);
         this.router.delete('/accounts/:idAccount', userController.deleteAccount);
         this.router.delete('/changes/:idChanges', userController.deleteChange);
+        this.router.get('/changes/filter/:id', userController.filterByid);
+        this.router.get('/changes/filter-email/:email', userController.filterByEmail);
+        this.router.get('/changes/filter-computer/:computer', userController.filterByComputer);
+        this.router.get('/changes/filter-date-start/:dateStart', userController.filterByDateStart);
+        this.router.get('/changes/filter-date-end/:dateEnd', userController.filterByDateEnd);
+        this.router.put('/changes/update/:id', userController.updateChange);
     }
 
 }

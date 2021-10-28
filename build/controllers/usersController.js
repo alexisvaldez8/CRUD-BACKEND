@@ -163,6 +163,68 @@ class UserController {
             });
         });
     }
+    filterByid(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            yield database_1.default.query('SELECT T1.* , T2.email FROM `dbo.changes` AS T1 LEFT JOIN `dbo.users.detail` AS T2 ON T1.idUser = T2.idUser WHERE T1.idChanges = ?', [id], function (err, result) {
+                if (err)
+                    throw err;
+                res.json(result);
+            });
+        });
+    }
+    filterByEmail(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { email } = req.params;
+            yield database_1.default.query('SELECT T1.* , T2.email FROM `dbo.changes` AS T1 LEFT JOIN `dbo.users.detail` AS T2 ON T1.idUser = T2.idUser WHERE T2.email = ?', [email], function (err, result) {
+                if (err)
+                    throw err;
+                res.json(result);
+            });
+        });
+    }
+    filterByComputer(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { computer } = req.params;
+            yield database_1.default.query('SELECT T1.* , T2.email FROM `dbo.changes` AS T1 LEFT JOIN `dbo.users.detail` AS T2 ON T1.idUser = T2.idUser WHERE T1.computer = ?', [computer], function (err, result) {
+                if (err)
+                    throw err;
+                res.json(result);
+            });
+        });
+    }
+    filterByDateStart(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { dateStart } = req.params;
+            yield database_1.default.query('SELECT T1.* , T2.email FROM `dbo.changes` AS T1 LEFT JOIN `dbo.users.detail` AS T2 ON T1.idUser = T2.idUser WHERE T1.dateStart = ?', [dateStart], function (err, result) {
+                if (err)
+                    throw err;
+                res.json(result);
+            });
+        });
+    }
+    filterByDateEnd(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { dateEnd } = req.params;
+            yield database_1.default.query('SELECT T1.* , T2.email FROM `dbo.changes` AS T1 LEFT JOIN `dbo.users.detail` AS T2 ON T1.idUser = T2.idUser WHERE T1.dateEnd = ?', [dateEnd], function (err, result) {
+                if (err)
+                    throw err;
+                res.json(result);
+            });
+        });
+    }
+    updateChange(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = req.params;
+            const change = req.body;
+            yield database_1.default.query('UPDATE `dbo.changes` set ? WHERE idChanges = ?', [change, id], function (err, result) {
+                if (err)
+                    throw err;
+                // res.json(result);
+                res.json({ message: "The change was Updated" });
+            });
+        });
+    }
 }
 const userController = new UserController();
 exports.default = userController;

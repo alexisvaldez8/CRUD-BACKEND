@@ -110,8 +110,52 @@ class UserController {
                 res.json(result)
             }
         });
-    }     
-}
+    }
+    public async filterByid(req: Request, res: Response) {
+        const { id } = req.params;
+        await pool.query('SELECT T1.* , T2.email FROM `dbo.changes` AS T1 LEFT JOIN `dbo.users.detail` AS T2 ON T1.idUser = T2.idUser WHERE T1.idChanges = ?' ,[id], function(err, result) {
+            if (err) throw err;
+            res.json(result);
+        });  
+    }
+    public async filterByEmail(req: Request, res: Response) {
+        const { email } = req.params;
+        await pool.query('SELECT T1.* , T2.email FROM `dbo.changes` AS T1 LEFT JOIN `dbo.users.detail` AS T2 ON T1.idUser = T2.idUser WHERE T2.email = ?' ,[email], function(err, result) {
+            if (err) throw err;
+            res.json(result);
+        });  
+    }
+    public async filterByComputer(req: Request, res: Response) {
+        const { computer } = req.params;
+        await pool.query('SELECT T1.* , T2.email FROM `dbo.changes` AS T1 LEFT JOIN `dbo.users.detail` AS T2 ON T1.idUser = T2.idUser WHERE T1.computer = ?' ,[computer], function(err, result) {
+            if (err) throw err;
+            res.json(result);
+        });  
+    }
+    public async filterByDateStart(req: Request, res: Response) {
+        const { dateStart } = req.params;
+        await pool.query('SELECT T1.* , T2.email FROM `dbo.changes` AS T1 LEFT JOIN `dbo.users.detail` AS T2 ON T1.idUser = T2.idUser WHERE T1.dateStart = ?' ,[dateStart], function(err, result) {
+            if (err) throw err;
+            res.json(result);
+        });  
+    }
+    public async filterByDateEnd(req: Request, res: Response) {
+        const { dateEnd } = req.params;
+        await pool.query('SELECT T1.* , T2.email FROM `dbo.changes` AS T1 LEFT JOIN `dbo.users.detail` AS T2 ON T1.idUser = T2.idUser WHERE T1.dateEnd = ?' ,[dateEnd], function(err, result) {
+            if (err) throw err;
+            res.json(result);
+        });  
+    }  
+    public async updateChange(req: Request, res: Response) {
+        const { id } = req.params;
+        const change = req.body;
+        await pool.query('UPDATE `dbo.changes` set ? WHERE idChanges = ?' ,[change, id], function(err, result) {
+            if (err) throw err;
+            // res.json(result);
+            res.json({ message: "The change was Updated" });
+        });  
+    }    
+}    
 
 const userController = new UserController();
 export default userController;

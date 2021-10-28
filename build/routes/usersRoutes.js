@@ -23,6 +23,12 @@ class UsersRoutes {
         this.router.delete('/:idUser', usersController_1.default.deleteUser);
         this.router.delete('/accounts/:idAccount', usersController_1.default.deleteAccount);
         this.router.delete('/changes/:idChanges', usersController_1.default.deleteChange);
+        this.router.get('/changes/filter/:id', usersController_1.default.filterByid);
+        this.router.get('/changes/filter-email/:email', usersController_1.default.filterByEmail);
+        this.router.get('/changes/filter-computer/:computer', usersController_1.default.filterByComputer);
+        this.router.get('/changes/filter-date-start/:dateStart', usersController_1.default.filterByDateStart);
+        this.router.get('/changes/filter-date-end/:dateEnd', usersController_1.default.filterByDateEnd);
+        this.router.put('/changes/update/:id', usersController_1.default.updateChange);
     }
 }
 const usersRoutes = new UsersRoutes();
